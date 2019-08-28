@@ -15,14 +15,19 @@ class MPU9250_api: public MPU9250 {
         
         void init();
         void calibrate();
+        void calibrate_gyro();
+        void calibrate_accel();
+        void calibrate_mag();
         
         int readFifo();
         
         uint16_t fifoCount();
         void cleanfifo();
+        int16_t* getrawdata();
         void getdata( 
             float &ax, float &ay, float &az,
-            float &gx, float &gy, float &gz
+            float &gx, float &gy, float &gz,
+            float &hx, float &hy, float &hz
         );
         
     private:

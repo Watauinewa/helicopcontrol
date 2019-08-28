@@ -86,8 +86,8 @@ void loop() {
     
     status = mpu9250.readFifo();
     if(status > 0) {
-        float ax, ay, az, gx, gy, gz;
-        mpu9250.getdata(ax, ay, az, gx, gy, gz);
+        float ax, ay, az, gx, gy, gz, hx, hy, hz;
+        mpu9250.getdata(ax, ay, az, gx, gy, gz, hx, hy, hz);
         
         if(i % 1000 == 0) {
             Serial.printf("%f \t%f \t%f\n", ax, ay, az);
