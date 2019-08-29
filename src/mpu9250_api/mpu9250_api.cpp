@@ -1,6 +1,5 @@
 #include "mpu9250_api.h"
 
-
 MPU9250_api::MPU9250_api( I2c &i2c, const uint8_t address): 
     MPU9250(*(i2c.wire), address) 
 {
