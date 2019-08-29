@@ -19,7 +19,7 @@ class MPU9250_api: public MPU9250 {
         void calibrate_accel();
         void calibrate_mag();
         
-        int readFifo();
+        uint16_t readFifo();
         
         uint16_t fifoCount();
         void cleanfifo();

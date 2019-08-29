@@ -169,7 +169,7 @@ void MPU9250_api::init() {
     Serial.printf("status 7 = %d\n", status);
 }
 
-int MPU9250_api::readFifo() {
+uint16_t MPU9250_api::readFifo() {
     uint16_t count = fifoCount();
     
     if( count == 1024) {

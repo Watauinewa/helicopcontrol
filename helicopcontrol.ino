@@ -5,12 +5,13 @@
 
 #include "src/i2c_api/i2c_api.h"
 #include "src/mpu9250_api/mpu9250_api.h"
-
+#include "src/bmp280_api/bmp280_api.h"
 
 uint32_t i = 0;
 
 I2c i2c1(1);
 MPU9250_api mpu9250( i2c1, 0x68);
+BMP280_api bmp280( i2c1, 0x76);
 
 void setup() {
     
@@ -35,6 +36,7 @@ void setup() {
     Serial.printf("valor leido %d\n", v);
     
     mpu9250.init();
+    bmp280.init();
     
     // Wire - Setup for Slave mode, address 0x44, pins 18/19, external pullup, 400kHz
 //     Wire.begin(I2C_SLAVE, 0x44, I2C_PINS_18_19, I2C_PULLUP_EXT, (uint32_t)400000);
