@@ -1,6 +1,8 @@
 #include "bmp280_api.h"
 
-I2c* global_i2c;
+// static I2c* global_i2c;
+
+I2c* BMP280_api::i2c;
 
 /*!
  *  @brief Function for writing the sensor's registers through I2C bus.
@@ -15,13 +17,13 @@ I2c* global_i2c;
  *  @retval >0 -> Failure Info
  *
  */
-int8_t i2c_reg_write(
+int8_t BMP280_api::i2c_reg_write(
     uint8_t i2c_addr, 
     uint8_t reg_addr, 
     uint8_t *reg_data, 
     uint16_t length
 ) {
-    global_i2c->writeBytes( i2c_addr, reg_addr, length, reg_data);
+    i2c->writeBytes( i2c_addr, reg_addr, length, reg_data);
     return 0;
 }
 
@@ -38,13 +40,13 @@ int8_t i2c_reg_write(
  *  @retval >0 -> Failure Info
  *
  */
-int8_t i2c_reg_read(
+int8_t BMP280_api::i2c_reg_read(
     uint8_t i2c_addr, 
     uint8_t reg_addr, 
     uint8_t *reg_data, 
     uint16_t length
 ) {
-    global_i2c->readBytes(i2c_addr, reg_addr, length, reg_data);
+    i2c->readBytes(i2c_addr, reg_addr, length, reg_data);
     return 0;
 }
 
@@ -67,7 +69,6 @@ void print_rslt(const char api_name[], int8_t rslt) {
 }
 
 BMP280_api::BMP280_api(I2c& i2c, const uint8_t address) {
-    global_i2c = &i2c;
     this->i2c = &i2c;
     this->address = address;
 }
@@ -130,7 +131,8 @@ void BMP280_api::read() {
         "UT: %ld, T32: %ld, T: %f \r\n", 
         ucomp_data.uncomp_temp, 
         temp_32, 
-        temp_lf);
+        temp_lf
+    );
     
     Serial.printf(
         "UP: %ld, P32: %ld, P64: %ld, P64N: %ld, P: %f\r\n",
@@ -138,6 +140,7 @@ void BMP280_api::read() {
         pres32,
         pres64,
         pres64 / 256,
-        pres);
+        pres
+    );
 }
 
