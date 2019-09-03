@@ -105,15 +105,12 @@ void MPU9250_api::init() {
     status = this->setDlpfBandwidth(MPU9250::DLPF_BANDWIDTH_41HZ);
     Serial.printf("status 4 = %d\n", status);
     
-    status = this->setSrd(1);
+    // setting the sample rate divider to 0 as default
+    status = writeRegister(SMPDIV, 0x00);
+    _srd = 0;
+//     status = this->setSrd(0); // Se cae al hacer AK8963_CNTL1 = AK8963_CNT_MEAS2 si se ehecuta esta funcion aquí
     Serial.printf("status 5 = %d\n", status);
 
-//     // setting the sample rate divider to 0 as default
-//     if(writeRegister(SMPDIV, 0x00) < 0) {
-//         return -11;
-//     }
-//     _srd = 0;
-    
     // enable I2C master mode
     status = writeRegister(USER_CTRL, I2C_MST_EN);
     Serial.printf("status 5.1 = %d\n", status);
@@ -151,16 +148,16 @@ void MPU9250_api::init() {
     delay(100); // long wait between AK8963 mode changes
     
     // set AK8963 to 16 bit resolution, 100 Hz update rate
-    status = writeAK8963Register(AK8963_CNTL1,AK8963_CNT_MEAS2);
+    status = writeAK8963Register(AK8963_CNTL1, AK8963_CNT_MEAS2);
     Serial.printf("status 5.6 = %d\n", status);
     delay(100); // long wait between AK8963 mode changes
     
     // select clock source to gyro
-    status = writeRegister(PWR_MGMNT_1,CLOCK_SEL_PLL);
+    status = writeRegister(PWR_MGMNT_1, CLOCK_SEL_PLL);
     Serial.printf("status 5.7 = %d\n", status);
     
     // instruct the MPU9250 to get 7 bytes of data from the AK8963 at the sample rate
-    readAK8963Registers(AK8963_HXL,7,_buffer);
+    readAK8963Registers(AK8963_HXL, 7, _buffer);
     
     status = this->disableDataReadyInterrupt();
     Serial.printf("status 6 = %d\n", status);
