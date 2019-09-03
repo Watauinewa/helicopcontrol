@@ -24,7 +24,6 @@ class BMP280_api {
         static int8_t i2c_reg_read(uint8_t i2c_addr, uint8_t reg_addr, uint8_t *reg_data, uint16_t length);
         
         struct bmp280_dev dev;
-        struct bmp280_config conf;
         struct bmp280_uncomp_data ucomp_data;
         
     public:

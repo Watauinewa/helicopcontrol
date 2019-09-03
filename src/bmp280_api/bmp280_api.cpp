@@ -73,7 +73,9 @@ BMP280_api::BMP280_api(I2c& i2c, const uint8_t address) {
     this->address = address;
 }
 
-void BMP280_api::init() {    
+void BMP280_api::init() {
+    struct bmp280_config conf;
+     
     // Assign device I2C address based on the status of SDO pin (GND for PRIMARY(0x76) & VDD for SECONDARY(0x77)) 
     dev.dev_id = address;
     
