@@ -92,12 +92,29 @@ void loop() {
         mpu9250.getdata(ax, ay, az, gx, gy, gz, hx, hy, hz);
         
         if(i % 1000 == 0) {
-            bmp280.read_test();
+            bmp280.read();
             
-            Serial.printf("%f \t%f \t%f \t%f \t%f\n", ax, ay, az, 
+            Serial.printf("%f \t%f \t%f \t%f \t%f \n", ax, ay, az, 
+//                           0, 0.0f
                 bmp280.get_temperature_lf(),
                 bmp280.get_pressure_lf()
             );
+            
+//              Serial.printf(
+//                 "---- UT: %ld, T32: %ld, T: %f ---\r\n", 
+//                 0, 
+//                 bmp280.get_temperature_32(), 
+//                 bmp280.get_temperature_lf()
+//             );
+//             
+//             Serial.printf(
+//                 "---- UP: %ld, P32: %ld, P64: %ld, P64N: %ld, P: %f ---\r\n",
+//                 0,
+//                 bmp280.get_pressure_32bit_u32(),
+//                 bmp280.get_pressure_u32(),
+//                 bmp280.get_pressure_u32() / 256,
+//                 bmp280.get_pressure_lf()
+//             );
         }
         
         i++;

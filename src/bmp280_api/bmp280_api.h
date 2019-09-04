@@ -16,7 +16,6 @@ class BMP280_api {
         void read_test();   // Prueba de lectura
         void read();
         
-        
     private:
         static I2c *i2c;   // Para leer y escribir por i2c ( Obligado a que sea static por como estan construidas las funciones "i2c_reg_write" y "i2c_reg_read" necesitadas por el driver bmp280.c)
         uint8_t address;   // Direccion i2c del dispositivo. Puede ser 0x76 o 0x77 segun pin SDO  (GND = ‘0’, VDDIO = ‘1’)
@@ -29,15 +28,17 @@ class BMP280_api {
         static int8_t i2c_reg_read(uint8_t i2c_addr, uint8_t reg_addr, uint8_t *reg_data, uint16_t length);
         
         struct bmp280_dev dev;
-        struct bmp280_uncomp_data uncomp_data;
         
     public:
+        struct bmp280_uncomp_data uncomp_data;
         uint32_t press_u32;
         double press_lf;
         
         int32_t temp_32;
         double temp_lf;
         
+        // Obtener la temperatura siempre antes de la presion para que "t_fine" sea 
+        // calculado (usado en el calculo de la presion)
         int32_t get_temperature_32();
         double get_temperature_lf();
         uint32_t get_pressure_32bit_u32();  // Version usando enteres de 32bits (es menos exacto que usando enteros de 64bits)
