@@ -336,7 +336,7 @@ double BMP280_api::get_pressure_lf() {
 }
 
 double BMP280_api::get_alture_lf() {
-    return 0;
+    return 44330.0 * (1.0 - pow_lf(press_lf * 0.00000986923, 0.1903));
 }
 
 

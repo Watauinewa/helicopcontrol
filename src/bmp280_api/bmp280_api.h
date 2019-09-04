@@ -4,6 +4,8 @@
 #include "../i2c_api/i2c_api.h"
 #include "../bmp280/bmp280.h"
 
+#include "../math_tool/math_tool.h"
+
 #include <stdint.h>
 
 class BMP280_api {
