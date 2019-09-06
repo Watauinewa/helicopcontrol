@@ -7,6 +7,8 @@
 #include "src/mpu9250_api/mpu9250_api.h"
 #include "src/bmp280_api/bmp280_api.h"
 
+#include "src/math_tool/math_tool.h"
+
 uint32_t i = 0;
 
 I2c i2c1(1);
@@ -77,6 +79,35 @@ void setup() {
 //         0.011218, 0.006808, 1.127647);
 
 //     mpu6050_cleanfifo();
+    
+    float x;
+    uint32_t *y = (uint32_t *)&x;
+    x = 0.0f;   Serial.printf("0x%08x = 0\n", *y);
+    x = 1.0f;   Serial.printf("0x%08x = 1\n", *y);
+    x = -1.0f;  Serial.printf("0x%08x = -1\n", *y);
+    x = 0.5f;   Serial.printf("0x%08x = 0.5\n", *y);
+    x = -0.5f;  Serial.printf("0x%08x = -0.5\n", *y);
+    x = 2.0f;   Serial.printf("0x%08x = 2.0\n", *y);
+    x = 4.0f;   Serial.printf("0x%08x = 4.0\n", *y);
+    x = 8.0f;   Serial.printf("0x%08x = 8.0\n", *y);
+    x = 16.0f;   Serial.printf("0x%08x = 16.0\n", *y);
+    x = 1.543f; Serial.printf("0x%08x = 1.543\n", *y);
+    
+    Serial.printf("ln(0) = %lf\n", ln_lf(0));
+    Serial.printf("ln(1) = %lf\n", ln_lf(1));
+    Serial.printf("ln(0.5) = %lf\n", ln_lf(0.5));
+    Serial.printf("ln(1.5) = %lf\n", ln_lf(1.5));
+    Serial.printf("ln(0.7422) = %lf\n", ln_lf(0.7422));
+    Serial.printf("ln(42.56) = %lf\n", ln_lf(42.56));
+    
+    Serial.printf("exp(0) = %lf \t%f\n", exp_lf(0), exp_f(0));
+    Serial.printf("exp(1) = %lf \t%f\n", exp_lf(1), exp_f(1));
+    Serial.printf("exp(0.5) = %lf \t%f\n", exp_lf(0.5), exp_f(0.5));
+    Serial.printf("exp(1.5) = %lf \t%f\n", exp_lf(1.5), exp_f(1.5));
+    Serial.printf("exp(0.7422) = %lf \t%f\n", exp_lf(0.7422), exp_f(0.7422));
+    Serial.printf("exp(42.56) = %lf \t%f\n", exp_lf(42.56), exp_f(42.56));
+    
+    Serial.printf("pow(3.1, 2.7) = %lf\n", pow_lf(3.1, 2.7));
 }
 
 int v = 1;

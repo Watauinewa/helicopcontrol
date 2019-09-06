@@ -14,10 +14,28 @@ typedef union {
 	};
 } hack_structure;
 
+typedef union {
+	float fp;
+	struct {
+		unsigned int signo : 1;
+        unsigned int expo : 8;
+        unsigned int mantisa : 23;
+	};
+} hack_structure_f;
+
+// Exponencial
+float exp_f(float x);
 double exp_lf(double x);
-static double __ln_lf(double x);
-static double _ln_lf(double x)
+
+// Logaritmo natural
+float ln_f(float x);
 double ln_lf(double x);
+
+// Potencia
+float power_f(float x, uint32_t n);
+// float pow_f(float x, float y);
+
+double power_lf(double x, uint32_t n);
 double pow_lf(double x, double y);
 
 #endif
