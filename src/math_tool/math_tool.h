@@ -26,12 +26,6 @@ typedef union {
 typedef union {
 	float fp;
     uint32_t dp;
-    
-	struct {
-		unsigned int signo : 1;
-        unsigned int expo : 8;
-        unsigned int mantisa : 23;
-	};
 } hack_structure_f;
 
 // Exponencial

@@ -15,7 +15,7 @@ static double _ln_lf(double x);
 // reduciendo el rango con m = 1/4, optimizando los coeficientes con minimax
 // (x debe ser siempre mayor que 0)
 static float _exp_f(float x) {
-    const float root_e = 1.284025416687741484073420568062436458336280865281463089217;
+    const float root_e = 1.284025416687741;
 	const float a = 1.000000034750736;
 	const float b = 0.499997989964957;
 	const float c = 0.166704077809886;
@@ -46,7 +46,7 @@ float exp_f( float x) {
 // reduciendo el rango con m = 1/4, optimizando los coeficientes con minimax
 // (x debe ser siempre mayor que 0)
 static double _exp_lf(double x) {
-	const double root_e = 1.284025416687741484073420568062436458336280865281463089217;
+	const double root_e = 1.284025416687741;
 	const double a = 1.000000034750736;
 	const double b = 0.499997989964957;
 	const double c = 0.166704077809886;
@@ -74,7 +74,6 @@ double exp_lf( double x) {
 }
 
 // Calcula el logaritmo natural de un punto flotante en el rango 0..1
-// Method: Limit the range to z = 0.069
 // Use minimaxed 5th-order rational
 // polynomial to calculate the log.
 static float __ln_f(float x) {
@@ -88,17 +87,16 @@ static float __ln_f(float x) {
 }
 
 // Parte de segmentacion en el cálculo del logaritmo
-// x esta en el rango 0.5 .. 1.0
+// x esta en el rango 1.0 .. 2.0
 static float _ln_f(float x) {
-	const float limit1 = 0.879559563;	// 0.5^(1/5)
-	const float limit2 = 0.659753955;	// 0.5^(3/5)
-	const float k1 = 0.757858283;		// 0.5^(2/5)
-	const float k2 = 0.574349177;		// 0.5^(4/5)
-	const float ln_k = -0.138629436;	// ln(0.5^(1/5))
+	const float k1 = 1.2599210498948732;       // 2^(1/3)
+	const float k2 = 1.5874010519681994;       // 2^(2/3)
+	const float ln_k1 = 0.2310490601866484;    // ln(k1)
+	const float ln_k2 = 0.4620981203732968;    // ln(k2)
 
-	if( x >= limit1) return __ln_f(x);
-	if( x >= limit2) return __ln_f(x / k1) + 2 * ln_k;
-	return __ln_f(x / k2) + 4 * ln_k;
+	if( x >= k2) return __ln_f(x);
+	if( x >= k1) return __ln_f(x * k1) - ln_k1;
+	return __ln_f(x * k2) - ln_k2;
 }
 
 // Calcula el logaritmo natural de x
@@ -128,7 +126,6 @@ float ln_f(float x) {
 }
 
 // Calcula el logaritmo natural de un punto flotante en el rango 0..1
-// Method: Limit the range to z = 0.069
 // Use minimaxed 5th-order rational
 // polynomial to calculate the log.
 static double __ln_lf(double x) {
@@ -142,17 +139,26 @@ static double __ln_lf(double x) {
 }
 
 // Parte de segmentacion en el cálculo del logaritmo
-// x esta en el rango 0.5 .. 1.0
+// x esta en el rango 1.0 .. 2.0
 static double _ln_lf(double x) {
-	const double limit1 = 0.879559563;	// 0.5^(1/5)
-	const double limit2 = 0.659753955;	// 0.5^(3/5)
-	const double k1 = 0.757858283;		// 0.5^(2/5)
-	const double k2 = 0.574349177;		// 0.5^(4/5)
-	const double ln_k = -0.138629436;	// ln(0.5^(1/5))
+// 	const double limit1 = 0.879559563;	// 0.5^(1/5)
+// 	const double limit2 = 0.659753955;	// 0.5^(3/5)
+// 	const double k1 = 0.757858283;		// 0.5^(2/5)
+// 	const double k2 = 0.574349177;		// 0.5^(4/5)
+// 	const double ln_k = -0.138629436;	// ln(0.5^(1/5))
+// 
+// 	if( x >= limit1) return __ln_lf(x);
+// 	if( x >= limit2) return __ln_lf(x/k1) + 2 * ln_k;
+// 	return __ln_lf(x / k2) + 4 * ln_k;
+    
+    const double k1 = 1.2599210498948732;       // 2^(1/3)
+	const double k2 = 1.5874010519681994;       // 2^(2/3)
+	const double ln_k1 = 0.2310490601866484;    // ln(k1)
+	const double ln_k2 = 0.4620981203732968;    // ln(k2)
 
-	if( x >= limit1) return __ln_lf(x);
-	if( x >= limit2) return __ln_lf(x/k1) + 2 * ln_k;
-	return __ln_lf(x / k2) + 4 * ln_k;
+	if( x >= k2) return __ln_lf(x);
+	if( x >= k1) return __ln_lf(x * k1) - ln_k1;
+	return __ln_lf(x * k2) - ln_k2;
 }
 
 // Calcula el logaritmo natural de x

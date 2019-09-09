@@ -94,6 +94,8 @@ void setup() {
     x = 8.0f;   Serial.printf("0x%08x = 8.0\n", *y);
     x = 16.0f;   Serial.printf("0x%08x = 16.0\n", *y);
     x = 1.543f; Serial.printf("0x%08x = 1.543\n", *y);
+    x = 0.1f; Serial.printf("0x%08x = %f\n", *y, x);
+    x = 1.1f; Serial.printf("0x%08x = %f\n", *y, x);
     
     Serial.printf("ln(0) = %lf \t%f\n", ln_lf(0), ln_f(0));
     Serial.printf("ln(1) = %lf \t%f\n", ln_lf(1), ln_f(1));
@@ -128,7 +130,7 @@ void setup() {
     alfa = 1.0;
     t = micros();
     for(i = 0; i < 10000; i++) {
-        r1 += pow( alfa, 2.7);
+        r1 += log( alfa);
         alfa += 0.001;
     }
     t1 = micros() - t;
@@ -137,7 +139,7 @@ void setup() {
     alfa = 1.0;
     t = micros();
     for(i = 0; i < 10000; i++) {
-        r2 += pow_lf( alfa, 2.7);
+        r2 += ln_lf( alfa);
         alfa += 0.001;
     }
     t2 = micros() - t;
@@ -146,8 +148,10 @@ void setup() {
     beta = 1.0;
     t = micros();
     for(i = 0; i < 10000; i++) {
-        r3 += pow_f( beta, 2.7);
+        r3 += ln_f( beta);
         beta += 0.001;
+        
+//        Serial.printf("ln(%f): ln_f = %f   ln_lf = %lf   log = %lf\n", beta, ln_f(beta), ln_lf(beta), log(beta));
     }
     t3 = micros() - t;
     
