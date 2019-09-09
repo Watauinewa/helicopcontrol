@@ -14,8 +14,19 @@ typedef union {
 	};
 } hack_structure;
 
+
+// float 32bit IEEE 754
+// +---+------------------------+-------------------------------------------------------------------------------+
+// | s |           e            |                                        m                                      |
+// +---+------------------------+-------------------------------------------------------------------------------+
+//  31  30                    24 23                                                                            0
+// s = signo        1 bit
+// e = exponente    8 bits
+// m = mantisa      23 bits
 typedef union {
 	float fp;
+    uint32_t dp;
+    
 	struct {
 		unsigned int signo : 1;
         unsigned int expo : 8;
@@ -33,7 +44,7 @@ double ln_lf(double x);
 
 // Potencia
 float power_f(float x, uint32_t n);
-// float pow_f(float x, float y);
+float pow_f(float x, float y);
 
 double power_lf(double x, uint32_t n);
 double pow_lf(double x, double y);

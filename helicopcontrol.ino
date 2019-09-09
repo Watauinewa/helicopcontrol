@@ -9,6 +9,8 @@
 
 #include "src/math_tool/math_tool.h"
 
+#include <math.h>
+
 uint32_t i = 0;
 
 I2c i2c1(1);
@@ -93,12 +95,12 @@ void setup() {
     x = 16.0f;   Serial.printf("0x%08x = 16.0\n", *y);
     x = 1.543f; Serial.printf("0x%08x = 1.543\n", *y);
     
-    Serial.printf("ln(0) = %lf\n", ln_lf(0));
-    Serial.printf("ln(1) = %lf\n", ln_lf(1));
-    Serial.printf("ln(0.5) = %lf\n", ln_lf(0.5));
-    Serial.printf("ln(1.5) = %lf\n", ln_lf(1.5));
-    Serial.printf("ln(0.7422) = %lf\n", ln_lf(0.7422));
-    Serial.printf("ln(42.56) = %lf\n", ln_lf(42.56));
+    Serial.printf("ln(0) = %lf \t%f\n", ln_lf(0), ln_f(0));
+    Serial.printf("ln(1) = %lf \t%f\n", ln_lf(1), ln_f(1));
+    Serial.printf("ln(0.5) = %lf \t%f\n", ln_lf(0.5), ln_f(0.5));
+    Serial.printf("ln(1.5) = %lf \t%f\n", ln_lf(1.5), ln_f(1.5));
+    Serial.printf("ln(0.7422) = %lf \t%f\n", ln_lf(0.7422), ln_f(0.7422));
+    Serial.printf("ln(42.56) = %lf \t%f\n", ln_lf(42.56), ln_f(42.56));
     
     Serial.printf("exp(0) = %lf \t%f\n", exp_lf(0), exp_f(0));
     Serial.printf("exp(1) = %lf \t%f\n", exp_lf(1), exp_f(1));
@@ -107,7 +109,15 @@ void setup() {
     Serial.printf("exp(0.7422) = %lf \t%f\n", exp_lf(0.7422), exp_f(0.7422));
     Serial.printf("exp(42.56) = %lf \t%f\n", exp_lf(42.56), exp_f(42.56));
     
-    Serial.printf("pow(3.1, 2.7) = %lf\n", pow_lf(3.1, 2.7));
+    Serial.printf("pow(3.1, 2.0) = %lf \t%f \t%lf\n", pow_lf(3.1, 2.0), pow_f(3.1, 2.0), pow(3.1, 2.0));
+    Serial.printf("pow(-3.1, 2.0) = %lf \t%f \t%lf\n", pow_lf(-3.1, 2.0), pow_f(-3.1, 2.0), pow(-3.1, 2.0));
+    Serial.printf("pow(3.1, 3.0) = %lf \t%f \t%lf\n", pow_lf(3.1, 3.0), pow_f(3.1, 3.0), pow(3.1, 3.0));
+    Serial.printf("pow(-3.1, 3.0) = %lf \t%f \t%lf\n", pow_lf(-3.1, 3.0), pow_f(-3.1, 3.0), pow(-3.1, 3.0));
+    Serial.printf("pow(3.1, 2.7) = %lf \t%f \t%lf\n", pow_lf(3.1, 2.7), pow_f(3.1, 2.7), pow(3.1, 2.7));
+    Serial.printf("pow(-3.1, 2.7) = %lf \t%f \t%lf\n", pow_lf(-3.1, 2.7), pow_f(-3.1, 2.7), pow(-3.1, 2.7));
+    Serial.printf("pow(-3.1, -2.7) = %lf \t%f \t%lf\n", pow_lf(-3.1, -2.7), pow_f(-3.1, -2.7), pow(-3.1, -2.7));
+    Serial.printf("pow(3.1, 3.7) = %lf \t%f \t%lf\n", pow_lf(3.1, 3.7), pow_f(3.1, 3.7), pow(3.1, 3.7));
+    Serial.printf("pow(-3.1, 3.7) = %lf \t%f \t%lf\n", pow_lf(-3.1, 3.7), pow_f(-3.1, 3.7), pow(-3.1, 3.7));
 }
 
 int v = 1;
@@ -124,13 +134,14 @@ void loop() {
         
         if(i % 1000 == 0) {
             bmp280.read();
-            
+/*
+            Serial.printf( "UT: %d, \tUP: %d\n", bmp280.uncomp_data.uncomp_temp, bmp280.uncomp_data.uncomp_press);
             Serial.printf("%f \t%f \t%f \t%f \t%f \n", ax, ay, az, 
 //                           0, 0.0f
                 bmp280.get_temperature_lf(),
                 bmp280.get_pressure_lf()
             );
-            
+*/
 //              Serial.printf(
 //                 "---- UT: %ld, T32: %ld, T: %f ---\r\n", 
 //                 0, 

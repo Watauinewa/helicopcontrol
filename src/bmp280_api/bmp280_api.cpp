@@ -196,8 +196,6 @@ void BMP280_api::read() {
         (((int32_t) (buffer[4])) << 4) | 
         (((int32_t) (buffer[5])) >> 4)
     );
-    
-    Serial.printf( "UT: %d, \tUP: %d\n", uncomp_data.uncomp_temp, uncomp_data.uncomp_press);
 
 //     int8_t rslt = st_check_boundaries(
 //         (int32_t)uncomp_data.uncomp_temp, 
