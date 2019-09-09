@@ -118,6 +118,43 @@ void setup() {
     Serial.printf("pow(-3.1, -2.7) = %lf \t%f \t%lf\n", pow_lf(-3.1, -2.7), pow_f(-3.1, -2.7), pow(-3.1, -2.7));
     Serial.printf("pow(3.1, 3.7) = %lf \t%f \t%lf\n", pow_lf(3.1, 3.7), pow_f(3.1, 3.7), pow(3.1, 3.7));
     Serial.printf("pow(-3.1, 3.7) = %lf \t%f \t%lf\n", pow_lf(-3.1, 3.7), pow_f(-3.1, 3.7), pow(-3.1, 3.7));
+    
+    uint32_t t, t1, t2, t3;
+    double r1, r2, r3;
+    double alfa;
+    float beta;
+    
+    r1 = 0;
+    alfa = 1.0;
+    t = micros();
+    for(i = 0; i < 10000; i++) {
+        r1 += pow( alfa, 2.7);
+        alfa += 0.001;
+    }
+    t1 = micros() - t;
+    
+    r2 = 0;
+    alfa = 1.0;
+    t = micros();
+    for(i = 0; i < 10000; i++) {
+        r2 += pow_lf( alfa, 2.7);
+        alfa += 0.001;
+    }
+    t2 = micros() - t;
+    
+    r3 = 0;
+    beta = 1.0;
+    t = micros();
+    for(i = 0; i < 10000; i++) {
+        r3 += pow_f( beta, 2.7);
+        beta += 0.001;
+    }
+    t3 = micros() - t;
+    
+    Serial.printf("%lf %lf %lf\n", r1, r2, r3);
+    Serial.printf("tiempo 1 = %d\n", t1);
+    Serial.printf("tiempo 2 = %d\n", t2);
+    Serial.printf("tiempo 3 = %d\n", t3);
 }
 
 int v = 1;
