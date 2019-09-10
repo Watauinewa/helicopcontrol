@@ -245,13 +245,7 @@ int16_t* MPU9250_api::getrawdata() {
     return buffer16;
 }
 
-
-void MPU9250_api::getdata( 
-    float &ax, float &ay, float &az,
-    float &gx, float &gy, float &gz,
-    float &hx, float &hy, float &hz
-) {
-    
+void MPU9250_api::getdata() {
 //     _axcounts = (((int16_t)_buffer[0]) << 8) | _buffer[1];
 //     _aycounts = (((int16_t)_buffer[2]) << 8) | _buffer[3];
 //     _azcounts = (((int16_t)_buffer[4]) << 8) | _buffer[5];
@@ -286,6 +280,26 @@ void MPU9250_api::getdata(
     hx = ((float)buffer16[7] - hx_offset) * hx_gain;
     hy = ((float)buffer16[8] - hy_offset) * hy_gain;
     hz = ((float)buffer16[9] - hz_offset) * hz_gain;
+}
+
+void MPU9250_api::getdata( 
+    float &ax, float &ay, float &az,
+    float &gx, float &gy, float &gz,
+    float &hx, float &hy, float &hz
+) {
+    this->getdata();
+    
+    ax = this->ax;
+    ay = this->ay;
+    az = this->az;
+    
+    gx = this->gx;
+    gy = this->gy;
+    gz = this->gz;
+    
+    hx = this->hx;
+    hy = this->hy;
+    hz = this->hz;
 }
 
 void MPU9250_api::calibrate_gyro() {

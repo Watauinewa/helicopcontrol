@@ -10,11 +10,14 @@ class MPU9250_api: public MPU9250 {
     public:
         int status;
         
+        float ax, ay, az;
+        float gx, gy, gz;
+        float hx, hy, hz;
+        
         MPU9250_api( I2c& i2c, const uint8_t address = 0x68);   // address = Direccion i2c del dispositivo. Puede ser 0x68 o 0x69 segun pin AD0
         int enableFifo(bool accel, bool gyro, bool mag, bool temp);
         
         void init();
-        void calibrate();
         void calibrate_gyro();
         void calibrate_accel();
         void calibrate_mag();
@@ -24,6 +27,7 @@ class MPU9250_api: public MPU9250 {
         uint16_t fifoCount();
         void cleanfifo();
         int16_t* getrawdata();
+        void getdata();
         void getdata( 
             float &ax, float &ay, float &az,
             float &gx, float &gy, float &gz,

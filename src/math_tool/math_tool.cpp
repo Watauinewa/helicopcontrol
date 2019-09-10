@@ -25,10 +25,10 @@ static float _exp_f(float x) {
 	float intpart;
 	int32_t n;
 
-	x *= 4;
+    x *= 4;
 	n = (int32_t)x;
 	x -= n;
-	x /= 4;
+    x /= 4;
 
 	retval = (((( x * e + d) * x + c) * x + b) * x + a) * x + 1;
 	intpart = power_f(root_e, n);
@@ -73,7 +73,7 @@ double exp_lf( double x) {
 	return _exp_lf(x);
 }
 
-// Calcula el logaritmo natural de un punto flotante en el rango 0..1
+// Calcula el logaritmo natural de un punto flotante en el rango 1.587 ... 2
 // Use minimaxed 5th-order rational
 // polynomial to calculate the log.
 static float __ln_f(float x) {
@@ -125,7 +125,7 @@ float ln_f(float x) {
 	return retval;
 }
 
-// Calcula el logaritmo natural de un punto flotante en el rango 0..1
+// Calcula el logaritmo natural de un punto flotante en el rango 1.587 ... 2
 // Use minimaxed 5th-order rational
 // polynomial to calculate the log.
 static double __ln_lf(double x) {

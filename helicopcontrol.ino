@@ -81,7 +81,8 @@ void setup() {
 //         0.011218, 0.006808, 1.127647);
 
 //     mpu6050_cleanfifo();
-    
+
+/*
     float x;
     uint32_t *y = (uint32_t *)&x;
     x = 0.0f;   Serial.printf("0x%08x = 0\n", *y);
@@ -92,24 +93,24 @@ void setup() {
     x = 2.0f;   Serial.printf("0x%08x = 2.0\n", *y);
     x = 4.0f;   Serial.printf("0x%08x = 4.0\n", *y);
     x = 8.0f;   Serial.printf("0x%08x = 8.0\n", *y);
-    x = 16.0f;   Serial.printf("0x%08x = 16.0\n", *y);
+    x = 16.0f;  Serial.printf("0x%08x = 16.0\n", *y);
     x = 1.543f; Serial.printf("0x%08x = 1.543\n", *y);
-    x = 0.1f; Serial.printf("0x%08x = %f\n", *y, x);
-    x = 1.1f; Serial.printf("0x%08x = %f\n", *y, x);
+    x = 0.1f;   Serial.printf("0x%08x = %f\n", *y, x);
+    x = 1.1f;   Serial.printf("0x%08x = %f\n", *y, x);
     
-    Serial.printf("ln(0) = %lf \t%f\n", ln_lf(0), ln_f(0));
-    Serial.printf("ln(1) = %lf \t%f\n", ln_lf(1), ln_f(1));
-    Serial.printf("ln(0.5) = %lf \t%f\n", ln_lf(0.5), ln_f(0.5));
-    Serial.printf("ln(1.5) = %lf \t%f\n", ln_lf(1.5), ln_f(1.5));
-    Serial.printf("ln(0.7422) = %lf \t%f\n", ln_lf(0.7422), ln_f(0.7422));
-    Serial.printf("ln(42.56) = %lf \t%f\n", ln_lf(42.56), ln_f(42.56));
+    x = 0.0;    Serial.printf("ln(%f) log = %lf   ln_lf = %lf   ln_f = %f\n", x, log(x), ln_lf(x), ln_f(x));    
+    x = 1.0;    Serial.printf("ln(%f) log = %lf   ln_lf = %lf   ln_f = %f\n", x, log(x), ln_lf(x), ln_f(x));    
+    x = 0.5;    Serial.printf("ln(%f) log = %lf   ln_lf = %lf   ln_f = %f\n", x, log(x), ln_lf(x), ln_f(x));    
+    x = 1.5;    Serial.printf("ln(%f) log = %lf   ln_lf = %lf   ln_f = %f\n", x, log(x), ln_lf(x), ln_f(x));    
+    x = 0.7422; Serial.printf("ln(%f) log = %lf   ln_lf = %lf   ln_f = %f\n", x, log(x), ln_lf(x), ln_f(x));    
+    x = 42.56;  Serial.printf("ln(%f) log = %lf   ln_lf = %lf   ln_f = %f\n", x, log(x), ln_lf(x), ln_f(x));
     
-    Serial.printf("exp(0) = %lf \t%f\n", exp_lf(0), exp_f(0));
-    Serial.printf("exp(1) = %lf \t%f\n", exp_lf(1), exp_f(1));
-    Serial.printf("exp(0.5) = %lf \t%f\n", exp_lf(0.5), exp_f(0.5));
-    Serial.printf("exp(1.5) = %lf \t%f\n", exp_lf(1.5), exp_f(1.5));
-    Serial.printf("exp(0.7422) = %lf \t%f\n", exp_lf(0.7422), exp_f(0.7422));
-    Serial.printf("exp(42.56) = %lf \t%f\n", exp_lf(42.56), exp_f(42.56));
+    x = 0.0;    Serial.printf("exp(%f): exp = %lf   exp_lf = %lf   exp_f = %f \n", x, exp(x), exp_lf(x), exp_f(x));
+    x = 1.0;    Serial.printf("exp(%f): exp = %lf   exp_lf = %lf   exp_f = %f \n", x, exp(x), exp_lf(x), exp_f(x));
+    x = 0.5;    Serial.printf("exp(%f): exp = %lf   exp_lf = %lf   exp_f = %f \n", x, exp(x), exp_lf(x), exp_f(x));
+    x = 1.5;    Serial.printf("exp(%f): exp = %lf   exp_lf = %lf   exp_f = %f \n", x, exp(x), exp_lf(x), exp_f(x));
+    x = 0.7422; Serial.printf("exp(%f): exp = %lf   exp_lf = %lf   exp_f = %f \n", x, exp(x), exp_lf(x), exp_f(x));
+    x = 42.56;  Serial.printf("exp(%f): exp = %lf   exp_lf = %lf   exp_f = %f \n", x, exp(x), exp_lf(x), exp_f(x));
     
     Serial.printf("pow(3.1, 2.0) = %lf \t%f \t%lf\n", pow_lf(3.1, 2.0), pow_f(3.1, 2.0), pow(3.1, 2.0));
     Serial.printf("pow(-3.1, 2.0) = %lf \t%f \t%lf\n", pow_lf(-3.1, 2.0), pow_f(-3.1, 2.0), pow(-3.1, 2.0));
@@ -127,29 +128,29 @@ void setup() {
     float beta;
     
     r1 = 0;
-    alfa = 1.0;
+    beta = -0.5;
     t = micros();
     for(i = 0; i < 10000; i++) {
-        r1 += log( alfa);
-        alfa += 0.001;
+        r1 += pow_f( 3.7, beta);
+        beta += 0.003;
     }
     t1 = micros() - t;
     
     r2 = 0;
-    alfa = 1.0;
+    beta = -0.5;
     t = micros();
     for(i = 0; i < 10000; i++) {
-        r2 += ln_lf( alfa);
-        alfa += 0.001;
+        r2 += exp_f( beta);
+        beta += 0.003;
     }
     t2 = micros() - t;
     
     r3 = 0;
-    beta = 1.0;
+    beta = -0.5;
     t = micros();
     for(i = 0; i < 10000; i++) {
         r3 += ln_f( beta);
-        beta += 0.001;
+        beta += 0.003;
         
 //        Serial.printf("ln(%f): ln_f = %f   ln_lf = %lf   log = %lf\n", beta, ln_f(beta), ln_lf(beta), log(beta));
     }
@@ -159,6 +160,8 @@ void setup() {
     Serial.printf("tiempo 1 = %d\n", t1);
     Serial.printf("tiempo 2 = %d\n", t2);
     Serial.printf("tiempo 3 = %d\n", t3);
+    
+    */
 }
 
 int v = 1;
@@ -170,36 +173,37 @@ void loop() {
     
     status = mpu9250.readFifo();
     if(status > 0) {
-        float ax, ay, az, gx, gy, gz, hx, hy, hz;
-        mpu9250.getdata(ax, ay, az, gx, gy, gz, hx, hy, hz);
+        mpu9250.getdata();
         
         if(i % 1000 == 0) {
             bmp280.read();
-/*
-            Serial.printf( "UT: %d, \tUP: %d\n", bmp280.uncomp_data.uncomp_temp, bmp280.uncomp_data.uncomp_press);
-            Serial.printf("%f \t%f \t%f \t%f \t%f \n", ax, ay, az, 
-//                           0, 0.0f
-                bmp280.get_temperature_lf(),
-                bmp280.get_pressure_lf()
-            );
-*/
-//              Serial.printf(
-//                 "---- UT: %ld, T32: %ld, T: %f ---\r\n", 
-//                 0, 
-//                 bmp280.get_temperature_32(), 
-//                 bmp280.get_temperature_lf()
-//             );
-//             
+            
+            bmp280.calc_temperature_32();
+            bmp280.calc_pressure_f();
+            bmp280.calc_altitude_f();
+            
+//             bmp280.calc_pressure_lf();
+//             bmp280.calc_altitude_lf();
+
+//             Serial.printf( "UT: %d, \tUP: %d\n", bmp280.uncomp_data.uncomp_temp, bmp280.uncomp_data.uncomp_press);
+//             Serial.printf("%f \t%f \t%f \t", mpu9250.ax, mpu9250.ay, mpu9250.az);
+//             Serial.printf("%f \t%f \t", bmp280.temp_lf, bmp280.press_lf);
+//             Serial.printf("%d \t%f \t%lf \t", bmp280.temp_32, bmp280.temp_f, bmp280.temp_lf);
+            Serial.printf("H = %f \t", bmp280.h_f);
+//             Serial.printf("H_lf = %f \t", bmp280.h_lf);
+
 //             Serial.printf(
-//                 "---- UP: %ld, P32: %ld, P64: %ld, P64N: %ld, P: %f ---\r\n",
-//                 0,
-//                 bmp280.get_pressure_32bit_u32(),
-//                 bmp280.get_pressure_u32(),
-//                 bmp280.get_pressure_u32() / 256,
-//                 bmp280.get_pressure_lf()
+//                 "---- UP: %ld, P32: %ld, P64: %ld, P64N: %ld, P: %f %f \t",
+//                 bmp280.uncomp_data.uncomp_press,
+//                 bmp280.calc_pressure_32bit_u32(),
+//                 bmp280.calc_pressure_u32(),
+//                 bmp280.calc_pressure_u32() / 256,
+//                 bmp280.calc_pressure_f(),
+//                 bmp280.calc_pressure_lf()
 //             );
+            
+            Serial.printf("\n");
         }
-        
         i++;
     }
 }

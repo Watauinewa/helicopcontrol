@@ -203,7 +203,7 @@ void BMP280_api::read() {
 //     );
 }
 
-int32_t BMP280_api::get_temperature_32() {
+int32_t BMP280_api::calc_temperature_32() {
     int32_t var1, var2;
     int32_t p1 = (uncomp_data.uncomp_temp >> 4) - ((int32_t) dev.calib_param.dig_t1);
     
@@ -216,8 +216,27 @@ int32_t BMP280_api::get_temperature_32() {
     return temp_32;
 }
 
+float BMP280_api::calc_temperature_f() {
+    float var1, var2;
+    float p1;
+    
+    var1 = 
+        (((float) uncomp_data.uncomp_temp) / 16384.0 - 
+        ((float) dev.calib_param.dig_t1) / 1024.0) *
+        ((float) dev.calib_param.dig_t2);
+            
+    p1 = (((float) uncomp_data.uncomp_temp) / 131072.0 - ((float) dev.calib_param.dig_t1) / 8192.0);
+    var2 = (p1 * p1) * ((float) dev.calib_param.dig_t3);
+    p1 = var1 + var2;
+        
+    dev.calib_param.t_fine = (int32_t) p1;
+    temp_f = (p1 / 5120.0);
+    
+    return temp_f;
+}
 
-double BMP280_api::get_temperature_lf() {
+
+double BMP280_api::calc_temperature_lf() {
     double var1, var2;
     double p1;
     
@@ -236,7 +255,7 @@ double BMP280_api::get_temperature_lf() {
     return temp_lf;
 }
 
-uint32_t BMP280_api::get_pressure_32bit_u32() {
+uint32_t BMP280_api::calc_pressure_32bit_u32() {
     int32_t var1, var2;
     int32_t p1;
     uint32_t p2;
@@ -268,17 +287,15 @@ uint32_t BMP280_api::get_pressure_32bit_u32() {
         var2 = (((int32_t) (press_u32 >> 2)) * ((int32_t) dev.calib_param.dig_p8)) >> 13;
             
         press_u32 = (uint32_t) ((int32_t) press_u32 + ((var1 + var2 + dev.calib_param.dig_p7) >> 4));
-//         rslt = BMP280_OK;
     } else {
         press_u32 = 0;
-//         rslt = BMP280_E_32BIT_COMP_PRESS;
     }
     
     return press_u32;
 }
 
 
-uint32_t BMP280_api::get_pressure_u32() {
+uint32_t BMP280_api::calc_pressure_u32() {
     int64_t var1, var2, p;
     
     var1 = ((int64_t) (dev.calib_param.t_fine)) - 128000;
@@ -297,16 +314,40 @@ uint32_t BMP280_api::get_pressure_u32() {
         var2 = (((int64_t) dev.calib_param.dig_p8) * p) >> 19;
         p = ((p + var1 + var2) >> 8) + (((int64_t)dev.calib_param.dig_p7) << 4);
         press_u32 = (uint32_t)p;
-//         rslt = BMP280_OK;
     } else {
         press_u32 = 0;
-//         rslt = BMP280_E_64BIT_COMP_PRESS;
     }
     
     return press_u32;
 }
 
-double BMP280_api::get_pressure_lf() {
+float BMP280_api::calc_pressure_f() {
+    float var1, var2;
+    int32_t var3;
+    
+    var1 = ((float) dev.calib_param.t_fine / 2.0) - 64000.0;
+    var2 = var1 * var1 * ((float) dev.calib_param.dig_p6) / 32768.0;
+    var2 = var2 + var1 * ((float) dev.calib_param.dig_p5) * 2.0;
+    var2 = (var2 / 4.0) + (((float) dev.calib_param.dig_p4) * 65536.0);
+    var1 = (((float) dev.calib_param.dig_p3) * var1 * 
+        var1 / 524288.0 + ((float) dev.calib_param.dig_p2) * var1) / 524288.0;
+    var1 = (1.0 + var1 / 32768.0) * ((float) dev.calib_param.dig_p1);
+    
+    var3 = (uint32_t)(1048576.0 - (float) uncomp_data.uncomp_press);
+    
+    if (var1 < 0 || var1 > 0) {
+        var3 = (uint32_t)((var3 - (var2 / 4096.0)) * 6250.0 / var1);
+        var1 = ((float) dev.calib_param.dig_p9) * var3 * var3 / 2147483648.0;
+        var2 = var3 * ((float) dev.calib_param.dig_p8) / 32768.0;
+        press_f = (var3 + (var1 + var2 + ((float) dev.calib_param.dig_p7)) / 16.0);
+    } else {
+        press_f = 0;
+    }
+
+    return press_f;
+}
+
+double BMP280_api::calc_pressure_lf() {
     double var1, var2;
     int32_t var3;
     
@@ -333,8 +374,14 @@ double BMP280_api::get_pressure_lf() {
     return press_lf;
 }
 
-double BMP280_api::get_alture_lf() {
-    return 44330.0 * (1.0 - pow_lf(press_lf * 0.00000986923, 0.1903));
+float BMP280_api::calc_altitude_f() {
+    h_f = 44330.0f * (1.0f - pow_f((press_f) * 0.00000986923f, 0.1903f));
+    return h_f;
+}
+
+double BMP280_api::calc_altitude_lf() {
+    h_lf = 44330.0 * (1.0 - pow_lf(press_lf * 0.00000986923, 0.1903));
+    return h_lf;
 }
 
 
