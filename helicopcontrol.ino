@@ -82,7 +82,7 @@ void setup() {
 
 //     mpu6050_cleanfifo();
 
-/*
+
     float x;
     uint32_t *y = (uint32_t *)&x;
     x = 0.0f;   Serial.printf("0x%08x = 0\n", *y);
@@ -122,6 +122,7 @@ void setup() {
     Serial.printf("pow(3.1, 3.7) = %lf \t%f \t%lf\n", pow_lf(3.1, 3.7), pow_f(3.1, 3.7), pow(3.1, 3.7));
     Serial.printf("pow(-3.1, 3.7) = %lf \t%f \t%lf\n", pow_lf(-3.1, 3.7), pow_f(-3.1, 3.7), pow(-3.1, 3.7));
     
+/*
     uint32_t t, t1, t2, t3;
     double r1, r2, r3;
     double alfa;
