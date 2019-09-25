@@ -98,29 +98,29 @@ void setup() {
     x = 0.1f;   Serial.printf("0x%08x = %f\n", *y, x);
     x = 1.1f;   Serial.printf("0x%08x = %f\n", *y, x);
     
-    x = 0.0;    Serial.printf("ln(%f) log = %lf   ln_lf = %lf   ln_f = %f\n", x, log(x), ln_lf(x), ln_f(x));    
-    x = 1.0;    Serial.printf("ln(%f) log = %lf   ln_lf = %lf   ln_f = %f\n", x, log(x), ln_lf(x), ln_f(x));    
-    x = 0.5;    Serial.printf("ln(%f) log = %lf   ln_lf = %lf   ln_f = %f\n", x, log(x), ln_lf(x), ln_f(x));    
-    x = 1.5;    Serial.printf("ln(%f) log = %lf   ln_lf = %lf   ln_f = %f\n", x, log(x), ln_lf(x), ln_f(x));    
-    x = 0.7422; Serial.printf("ln(%f) log = %lf   ln_lf = %lf   ln_f = %f\n", x, log(x), ln_lf(x), ln_f(x));    
-    x = 42.56;  Serial.printf("ln(%f) log = %lf   ln_lf = %lf   ln_f = %f\n", x, log(x), ln_lf(x), ln_f(x));
+    x = 0.0;    Serial.printf("ln(%f) log = %lf   ln_64f = %lf   ln_32f = %f\n", x, log(x), ln_64f(x), ln_32f(x));    
+    x = 1.0;    Serial.printf("ln(%f) log = %lf   ln_64f = %lf   ln_32f = %f\n", x, log(x), ln_64f(x), ln_32f(x));    
+    x = 0.5;    Serial.printf("ln(%f) log = %lf   ln_64f = %lf   ln_32f = %f\n", x, log(x), ln_64f(x), ln_32f(x));    
+    x = 1.5;    Serial.printf("ln(%f) log = %lf   ln_64f = %lf   ln_32f = %f\n", x, log(x), ln_64f(x), ln_32f(x));    
+    x = 0.7422; Serial.printf("ln(%f) log = %lf   ln_64f = %lf   ln_32f = %f\n", x, log(x), ln_64f(x), ln_32f(x));    
+    x = 42.56;  Serial.printf("ln(%f) log = %lf   ln_64f = %lf   ln_32f = %f\n", x, log(x), ln_64f(x), ln_32f(x));
     
-    x = 0.0;    Serial.printf("exp(%f): exp = %lf   exp_lf = %lf   exp_f = %f \n", x, exp(x), exp_lf(x), exp_f(x));
-    x = 1.0;    Serial.printf("exp(%f): exp = %lf   exp_lf = %lf   exp_f = %f \n", x, exp(x), exp_lf(x), exp_f(x));
-    x = 0.5;    Serial.printf("exp(%f): exp = %lf   exp_lf = %lf   exp_f = %f \n", x, exp(x), exp_lf(x), exp_f(x));
-    x = 1.5;    Serial.printf("exp(%f): exp = %lf   exp_lf = %lf   exp_f = %f \n", x, exp(x), exp_lf(x), exp_f(x));
-    x = 0.7422; Serial.printf("exp(%f): exp = %lf   exp_lf = %lf   exp_f = %f \n", x, exp(x), exp_lf(x), exp_f(x));
-    x = 42.56;  Serial.printf("exp(%f): exp = %lf   exp_lf = %lf   exp_f = %f \n", x, exp(x), exp_lf(x), exp_f(x));
+    x = 0.0;    Serial.printf("exp(%f): exp = %lf   exp_64f = %lf   exp_32f = %f \n", x, exp(x), exp_64f(x), exp_32f(x));
+    x = 1.0;    Serial.printf("exp(%f): exp = %lf   exp_64f = %lf   exp_32f = %f \n", x, exp(x), exp_64f(x), exp_32f(x));
+    x = 0.5;    Serial.printf("exp(%f): exp = %lf   exp_64f = %lf   exp_32f = %f \n", x, exp(x), exp_64f(x), exp_32f(x));
+    x = 1.5;    Serial.printf("exp(%f): exp = %lf   exp_64f = %lf   exp_32f = %f \n", x, exp(x), exp_64f(x), exp_32f(x));
+    x = 0.7422; Serial.printf("exp(%f): exp = %lf   exp_64f = %lf   exp_32f = %f \n", x, exp(x), exp_64f(x), exp_32f(x));
+    x = 42.56;  Serial.printf("exp(%f): exp = %lf   exp_64f = %lf   exp_32f = %f \n", x, exp(x), exp_64f(x), exp_32f(x));
     
-    Serial.printf("pow(3.1, 2.0) = %lf \t%f \t%lf\n", pow_lf(3.1, 2.0), pow_f(3.1, 2.0), pow(3.1, 2.0));
-    Serial.printf("pow(-3.1, 2.0) = %lf \t%f \t%lf\n", pow_lf(-3.1, 2.0), pow_f(-3.1, 2.0), pow(-3.1, 2.0));
-    Serial.printf("pow(3.1, 3.0) = %lf \t%f \t%lf\n", pow_lf(3.1, 3.0), pow_f(3.1, 3.0), pow(3.1, 3.0));
-    Serial.printf("pow(-3.1, 3.0) = %lf \t%f \t%lf\n", pow_lf(-3.1, 3.0), pow_f(-3.1, 3.0), pow(-3.1, 3.0));
-    Serial.printf("pow(3.1, 2.7) = %lf \t%f \t%lf\n", pow_lf(3.1, 2.7), pow_f(3.1, 2.7), pow(3.1, 2.7));
-    Serial.printf("pow(-3.1, 2.7) = %lf \t%f \t%lf\n", pow_lf(-3.1, 2.7), pow_f(-3.1, 2.7), pow(-3.1, 2.7));
-    Serial.printf("pow(-3.1, -2.7) = %lf \t%f \t%lf\n", pow_lf(-3.1, -2.7), pow_f(-3.1, -2.7), pow(-3.1, -2.7));
-    Serial.printf("pow(3.1, 3.7) = %lf \t%f \t%lf\n", pow_lf(3.1, 3.7), pow_f(3.1, 3.7), pow(3.1, 3.7));
-    Serial.printf("pow(-3.1, 3.7) = %lf \t%f \t%lf\n", pow_lf(-3.1, 3.7), pow_f(-3.1, 3.7), pow(-3.1, 3.7));
+    Serial.printf("pow(3.1, 2.0) = %lf \t%f \t%lf\n", pow_64f(3.1, 2.0), pow_32f(3.1, 2.0), pow(3.1, 2.0));
+    Serial.printf("pow(-3.1, 2.0) = %lf \t%f \t%lf\n", pow_64f(-3.1, 2.0), pow_32f(-3.1, 2.0), pow(-3.1, 2.0));
+    Serial.printf("pow(3.1, 3.0) = %lf \t%f \t%lf\n", pow_64f(3.1, 3.0), pow_32f(3.1, 3.0), pow(3.1, 3.0));
+    Serial.printf("pow(-3.1, 3.0) = %lf \t%f \t%lf\n", pow_64f(-3.1, 3.0), pow_32f(-3.1, 3.0), pow(-3.1, 3.0));
+    Serial.printf("pow(3.1, 2.7) = %lf \t%f \t%lf\n", pow_64f(3.1, 2.7), pow_32f(3.1, 2.7), pow(3.1, 2.7));
+    Serial.printf("pow(-3.1, 2.7) = %lf \t%f \t%lf\n", pow_64f(-3.1, 2.7), pow_32f(-3.1, 2.7), pow(-3.1, 2.7));
+    Serial.printf("pow(-3.1, -2.7) = %lf \t%f \t%lf\n", pow_64f(-3.1, -2.7), pow_32f(-3.1, -2.7), pow(-3.1, -2.7));
+    Serial.printf("pow(3.1, 3.7) = %lf \t%f \t%lf\n", pow_64f(3.1, 3.7), pow_32f(3.1, 3.7), pow(3.1, 3.7));
+    Serial.printf("pow(-3.1, 3.7) = %lf \t%f \t%lf\n", pow_64f(-3.1, 3.7), pow_32f(-3.1, 3.7), pow(-3.1, 3.7));
     
 /*
     uint32_t t, t1, t2, t3;
@@ -132,7 +132,7 @@ void setup() {
     beta = -0.5;
     t = micros();
     for(i = 0; i < 10000; i++) {
-        r1 += pow_f( 3.7, beta);
+        r1 += pow_32f( 3.7, beta);
         beta += 0.003;
     }
     t1 = micros() - t;
@@ -141,7 +141,7 @@ void setup() {
     beta = -0.5;
     t = micros();
     for(i = 0; i < 10000; i++) {
-        r2 += exp_f( beta);
+        r2 += exp_32f( beta);
         beta += 0.003;
     }
     t2 = micros() - t;
@@ -150,10 +150,10 @@ void setup() {
     beta = -0.5;
     t = micros();
     for(i = 0; i < 10000; i++) {
-        r3 += ln_f( beta);
+        r3 += ln_32f( beta);
         beta += 0.003;
         
-//        Serial.printf("ln(%f): ln_f = %f   ln_lf = %lf   log = %lf\n", beta, ln_f(beta), ln_lf(beta), log(beta));
+//        Serial.printf("ln(%f): ln_32f = %f   ln_64f = %lf   log = %lf\n", beta, ln_32f(beta), ln_64f(beta), log(beta));
     }
     t3 = micros() - t;
     
@@ -180,18 +180,18 @@ void loop() {
             bmp280.read();
             
             bmp280.calc_temperature_32();
-            bmp280.calc_pressure_f();
-            bmp280.calc_altitude_f();
+            bmp280.calc_pressure_32f();
+            bmp280.calc_altitude_32f();
             
-//             bmp280.calc_pressure_lf();
-//             bmp280.calc_altitude_lf();
+//             bmp280.calc_pressure_64f();
+//             bmp280.calc_altitude_64f();
 
 //             Serial.printf( "UT: %d, \tUP: %d\n", bmp280.uncomp_data.uncomp_temp, bmp280.uncomp_data.uncomp_press);
 //             Serial.printf("%f \t%f \t%f \t", mpu9250.ax, mpu9250.ay, mpu9250.az);
-//             Serial.printf("%f \t%f \t", bmp280.temp_lf, bmp280.press_lf);
-//             Serial.printf("%d \t%f \t%lf \t", bmp280.temp_32, bmp280.temp_f, bmp280.temp_lf);
-            Serial.printf("H = %f \t", bmp280.h_f);
-//             Serial.printf("H_lf = %f \t", bmp280.h_lf);
+//             Serial.printf("%f \t%f \t", bmp280.temp_64f, bmp280.press_64f);
+//             Serial.printf("%d \t%f \t%lf \t", bmp280.temp_32, bmp280.temp_32f, bmp280.temp_64f);
+            Serial.printf("H = %f \t", bmp280.h_32f);
+//             Serial.printf("H_64f = %f \t", bmp280.h_64f);
 
 //             Serial.printf(
 //                 "---- UP: %ld, P32: %ld, P64: %ld, P64N: %ld, P: %f %f \t",
@@ -199,8 +199,8 @@ void loop() {
 //                 bmp280.calc_pressure_32bit_u32(),
 //                 bmp280.calc_pressure_u32(),
 //                 bmp280.calc_pressure_u32() / 256,
-//                 bmp280.calc_pressure_f(),
-//                 bmp280.calc_pressure_lf()
+//                 bmp280.calc_pressure_32f(),
+//                 bmp280.calc_pressure_64f()
 //             );
             
             Serial.printf("\n");

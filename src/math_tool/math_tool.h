@@ -49,7 +49,7 @@
 typedef union {
     float fp;
     uint32_t dp;
-} hack_structure_f;
+} hack_structure_32f;
 // Double Prevision:
 //     The Exp field is biased by 0x3FF (1023) instead of 0x7F, so numbers between 1.0 and 2.0 have an Exp field of 0x3FF.
 //     The Exp value representing infinity and NaNs is 0x7FF (2047) instead of 0xFF.
@@ -59,21 +59,21 @@ typedef union {
         uint32_t lo;
         uint32_t hi;
     };
-} hack_structure_lf;
+} hack_structure_64f;
 
 // Exponencial
-float exp_f(float x);
-double exp_lf(double x);
+float exp_32f(float x);
+double exp_64f(double x);
 
 // Logaritmo natural
-float ln_f(float x);
-double ln_lf(double x);
+float ln_32f(float x);
+double ln_64f(double x);
 
 // Potencia
-float power_f(float x, uint32_t n);
-float pow_f(float x, float y);
+float power_32f(float x, uint32_t n);
+float pow_32f(float x, float y);
 
-double power_lf(double x, uint32_t n);
-double pow_lf(double x, double y);
+double power_64f(double x, uint32_t n);
+double pow_64f(double x, double y);
 
 #endif

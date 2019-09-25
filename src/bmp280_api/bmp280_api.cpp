@@ -154,7 +154,7 @@ void BMP280_api::read_test() {
     rslt = bmp280_get_comp_temp_32bit(&temp_32, uncomp_data.uncomp_temp, &dev);
 
     // Getting the compensated temperature as floating point value 
-    rslt = bmp280_get_comp_temp_double(&temp_lf, uncomp_data.uncomp_temp, &dev);
+    rslt = bmp280_get_comp_temp_double(&temp_64f, uncomp_data.uncomp_temp, &dev);
 
     // Getting the compensated pressure using 32 bit precision 
     rslt = bmp280_get_comp_pres_32bit(&press_32bits_u32, uncomp_data.uncomp_press, &dev);
@@ -163,13 +163,13 @@ void BMP280_api::read_test() {
     rslt = bmp280_get_comp_pres_64bit(&press_u32, uncomp_data.uncomp_press, &dev);
 
     // Getting the compensated pressure as floating point value 
-    rslt = bmp280_get_comp_pres_double(&press_lf, uncomp_data.uncomp_press, &dev);
+    rslt = bmp280_get_comp_pres_double(&press_64f, uncomp_data.uncomp_press, &dev);
     
     Serial.printf(
         "UT: %ld, T32: %ld, T: %f \r\n", 
         uncomp_data.uncomp_temp, 
         temp_32, 
-        temp_lf
+        temp_64f
     );
     
     Serial.printf(
@@ -178,7 +178,7 @@ void BMP280_api::read_test() {
         press_32bits_u32,
         press_u32,
         press_u32 / 256,
-        press_lf
+        press_64f
     );
 }
 
@@ -216,7 +216,7 @@ int32_t BMP280_api::calc_temperature_32() {
     return temp_32;
 }
 
-float BMP280_api::calc_temperature_f() {
+float BMP280_api::calc_temperature_32f() {
     float var1, var2;
     float p1;
     
@@ -230,13 +230,13 @@ float BMP280_api::calc_temperature_f() {
     p1 = var1 + var2;
         
     dev.calib_param.t_fine = (int32_t) p1;
-    temp_f = (p1 / 5120.0);
+    temp_32f = (p1 / 5120.0);
     
-    return temp_f;
+    return temp_32f;
 }
 
 
-double BMP280_api::calc_temperature_lf() {
+double BMP280_api::calc_temperature_64f() {
     double var1, var2;
     double p1;
     
@@ -250,9 +250,9 @@ double BMP280_api::calc_temperature_lf() {
     p1 = var1 + var2;
         
     dev.calib_param.t_fine = (int32_t) p1;
-    temp_lf = (p1 / 5120.0);
+    temp_64f = (p1 / 5120.0);
     
-    return temp_lf;
+    return temp_64f;
 }
 
 uint32_t BMP280_api::calc_pressure_32bit_u32() {
@@ -321,7 +321,7 @@ uint32_t BMP280_api::calc_pressure_u32() {
     return press_u32;
 }
 
-float BMP280_api::calc_pressure_f() {
+float BMP280_api::calc_pressure_32f() {
     float var1, var2;
     int32_t var3;
     
@@ -339,15 +339,15 @@ float BMP280_api::calc_pressure_f() {
         var3 = (uint32_t)((var3 - (var2 / 4096.0)) * 6250.0 / var1);
         var1 = ((float) dev.calib_param.dig_p9) * var3 * var3 / 2147483648.0;
         var2 = var3 * ((float) dev.calib_param.dig_p8) / 32768.0;
-        press_f = (var3 + (var1 + var2 + ((float) dev.calib_param.dig_p7)) / 16.0);
+        press_32f = (var3 + (var1 + var2 + ((float) dev.calib_param.dig_p7)) / 16.0);
     } else {
-        press_f = 0;
+        press_32f = 0;
     }
 
-    return press_f;
+    return press_32f;
 }
 
-double BMP280_api::calc_pressure_lf() {
+double BMP280_api::calc_pressure_64f() {
     double var1, var2;
     int32_t var3;
     
@@ -365,23 +365,23 @@ double BMP280_api::calc_pressure_lf() {
         var3 = (uint32_t)((var3 - (var2 / 4096.0)) * 6250.0 / var1);
         var1 = ((double) dev.calib_param.dig_p9) * var3 * var3 / 2147483648.0;
         var2 = var3 * ((double) dev.calib_param.dig_p8) / 32768.0;
-        press_lf = (var3 + (var1 + var2 + ((double) dev.calib_param.dig_p7)) / 16.0);
+        press_64f = (var3 + (var1 + var2 + ((double) dev.calib_param.dig_p7)) / 16.0);
     } else {
-        press_lf = 0;
+        press_64f = 0;
 //         rslt = BMP280_E_DOUBLE_COMP_PRESS;
     }
 
-    return press_lf;
+    return press_64f;
 }
 
-float BMP280_api::calc_altitude_f() {
-    h_f = 44330.0f * (1.0f - pow_f((press_f) * 0.00000986923f, 0.1903f));
-    return h_f;
+float BMP280_api::calc_altitude_32f() {
+    h_32f = 44330.0f * (1.0f - pow_32f((press_32f) * 0.00000986923f, 0.1903f));
+    return h_32f;
 }
 
-double BMP280_api::calc_altitude_lf() {
-    h_lf = 44330.0 * (1.0 - pow_lf(press_lf * 0.00000986923, 0.1903));
-    return h_lf;
+double BMP280_api::calc_altitude_64f() {
+    h_64f = 44330.0 * (1.0 - pow_64f(press_64f * 0.00000986923, 0.1903));
+    return h_64f;
 }
 
 

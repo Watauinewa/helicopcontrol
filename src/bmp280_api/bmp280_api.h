@@ -34,28 +34,28 @@ class BMP280_api {
     public:
         struct bmp280_uncomp_data uncomp_data;
         uint32_t press_u32;
-        float press_f;
-        double press_lf;
+        float press_32f;
+        double press_64f;
         
         int32_t temp_32;
-        float temp_f;
-        double temp_lf;
+        float temp_32f;
+        double temp_64f;
         
-        float h_f;      // Altura
-        double h_lf;    // Altura
+        float h_32f;      // Altura
+        double h_64f;    // Altura
         
         // Obtener la temperatura siempre antes de la presion para que "t_fine" sea 
         // calculado (usado en el calculo de la presion)
         int32_t calc_temperature_32();
-        float calc_temperature_f();
-        double calc_temperature_lf();
+        float calc_temperature_32f();
+        double calc_temperature_64f();
         uint32_t calc_pressure_32bit_u32();  // Version usando enteres de 32bits (es menos exacto que usando enteros de 64bits)
         uint32_t calc_pressure_u32();        // Version usando enteros de 64bits (se debe dividir por 256)
-        float calc_pressure_f();
-        double calc_pressure_lf();
+        float calc_pressure_32f();
+        double calc_pressure_64f();
         
-        float calc_altitude_f();
-        double calc_altitude_lf();
+        float calc_altitude_32f();
+        double calc_altitude_64f();
 };
 
 #endif
