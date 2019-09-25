@@ -1,8 +1,14 @@
 #include "lora_server_api.h"
 
+Lora_server_api::Lora_server_api( SPIClass &spi) {
+    this->spi = &spi;
+}
+
+
 void Lora_server_api::init() {
-    LoRa.setPins( 10, 9, 2);
-//     LoRa.setSPI( spi);
+    // LoRa.setPins(ss, reset, dio0);
+    LoRa.setPins( 9, 10, 11);
+    LoRa.setSPI(*spi);
 
     rslt = (uint8_t)LoRa.begin( 915E6);
     print_rslt("lora_server_api::init", rslt);

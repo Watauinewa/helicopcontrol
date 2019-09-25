@@ -2,10 +2,12 @@
 
 // #include <i2c_t3.h>     // ***20190821 Modificado para evitar conflicoto con Wire.h
 // #include <Wire.h>
+#include <SPI.h>
 
 #include "src/i2c_api/i2c_api.h"
 #include "src/mpu9250_api/mpu9250_api.h"
 #include "src/bmp280_api/bmp280_api.h"
+#include "src/lora_server_api/lora_server_api.h"
 
 #include "src/math_tool/math_tool.h"
 
@@ -16,10 +18,14 @@ uint32_t i = 0;
 I2c i2c1(1);
 MPU9250_api mpu9250( i2c1, 0x68);
 BMP280_api bmp280( i2c1, 0x76);
+Lora_server_api lora( SPI);
 
 void setup() {
-    
     Serial.begin(115200);               // Baud rate. The Teensy always uses USB speeds, so this number doesn't matter.
+    
+    SPI.setMOSI(7);
+    SPI.setMISO(8);
+    SPI.setSCK(14);
 
     pinMode( 11, INPUT);                // Interrupcin compas
     pinMode( 12, INPUT);                // Interrupcin IMU
@@ -41,6 +47,8 @@ void setup() {
     
     mpu9250.init();
     bmp280.init();
+    
+    lora.init();
     
     // Wire - Setup for Slave mode, address 0x44, pins 18/19, external pullup, 400kHz
 //     Wire.begin(I2C_SLAVE, 0x44, I2C_PINS_18_19, I2C_PULLUP_EXT, (uint32_t)400000);
